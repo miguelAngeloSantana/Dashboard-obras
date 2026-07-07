@@ -1,36 +1,24 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Dashboard Obras
 
-## Getting Started
+Esse app é um dashboard para pequenos contrutores conseguirem gerenciar varias obras ao mesmo tempo
 
-First, run the development server:
+## Tecnologias Utilizadas
+- NextJS
+- ReactJS
+- React Hook Form
+- Zod
+- TypeScript
+- Neon
+- PostgreeSQL
+- Prisma
+- Tailwindcss
+- Lucide React
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Funções do Site
+- Um pianel que mostra as obras ativas ( local da obra, nome do cliente, data de entrega e estagio em que a obra se encontra ) 
+- Além de um alerta sobre materias criticos e prazos vencendo
+- Um outro painel que mostra todos os materias disponiveis
+- Além de ser mostrado um resumo nesse painel contendo a quantidade de itens em baixa no estoque, consumo mensal e pedidos pendentes
+- Terá um painel mostrando o historico recente de pedidos, sendo um lista contendo o item, a data prevista, o total gasto e o status do pedido
+- Um painel sobre orçamentos, onde sera mostrado o saldo previsto x estimado e o desvio realizado de todas as obras
+- Tera uma lista nesse painel mostrando a etapa do projeto, os gastos previstos e realizados, o desvio desses dois gastos e o status do projeto
