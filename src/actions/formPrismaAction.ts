@@ -1,7 +1,8 @@
 "use server";
+
 import z from "zod";
 import { prisma } from "../lib/prisma";
-import { t } from "@/app/formulario/page";
+import { schemaObraType } from "@/app/formulario/page";
 
 const schemaSubTarefa = z.object({
     id: z.string().optional(),
@@ -42,12 +43,11 @@ const schemaObra = z.object({
     status: z.string(),
     progresso_pct: z.coerce.number(),
     orcamentoTotal: z.coerce.number().optional(),
-    // metodoPeso: z.string(), 
     etapa: z.array(schemaEtapa)
 });
 
 
-export default async function formPrismaAction(formData: t) {
+export default async function formPrismaAction(formData: schemaObraType) {
     const raw = schemaObra.safeParse(formData);
 
     if (!raw.success){

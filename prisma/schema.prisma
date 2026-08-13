@@ -7,6 +7,14 @@ datasource db {
   provider = "postgresql"
 }
 
+enum TipoLancamento {
+  MATERIAL
+  MAO_DE_OBRA
+  EQUIPAMENTO
+  SERVICO
+  OUTRO
+}
+
 model Obra {
   id             String    @id @default(uuid())
   nome           String
@@ -20,9 +28,10 @@ model Obra {
   progresso_pct  Int
   orcamentoTotal Decimal?  @db.Decimal(12, 2)
 
-  estoque Estoque[]
-  etapa   Etapa[]
-  pedidos Pedido[]
+  estoque     Estoque[]
+  lancamentos Lancamento[]
+  etapa       Etapa[]
+  pedidos     Pedido[]
 
   @@index([status])
   @@index([dataFim])
@@ -98,6 +107,23 @@ model Movimentacao {
 
   @@index([estoqueId])
   @@index([pedidoId])
+}
+
+model Lancamento {
+  id          String         @id @default(uuid())
+  obraId      String
+  etapaId     String?
+  tipo        TipoLancamento
+  valor       Decimal        @db.Decimal(12, 2)
+  data        DateTime
+  descricao   String?
+  notaFiscal  String?
+  comprovante String?
+
+  obra Obra @relation(fields: [obraId], references: [id], onDelete: Cascade)
+
+  @@index([obraId, data])
+  @@index([obraId, tipo])
 }
 
 model Pedido {

@@ -9,13 +9,13 @@ export type ObraType = {
     endereco: string;
     cep: string | null;
     clienteNome: string;
-    clientTel: string;
+    clientTel: string | null;
     dataInicio: Date;
     dataFim: Date | null;
-    status: statusObra
+    status: /*statusObra*/ string,
     progresso_pct: number
-    orcamentoTotal:  number | Decimal
-    metodoPeso: metodoPeso
+    orcamentoTotal:  Decimal | null
+    // metodoPeso: metodoPeso
     // estoque Estoque[]
     // etapa   Etapa[]
     // pedidos Pedido[]
@@ -122,4 +122,105 @@ export type EtapaProgressoProps = {
 export type pesoManualForm = {
     subEtapaId: string;
     valor: string;
+}
+
+export type TipoLancamento = 
+    | "MATERIAL"
+    | "MAO_DE_OBRA"
+    | "EQUIPAMENTO"
+    | "SERVICO"
+    | "OUTRO";
+
+
+
+// Cada lançamento representa uma saida financeira da obra
+export interface Lancamento {
+    id: string;
+    obraId: string;
+    // pedriodoId: string | null;
+    etapaId: string | null;
+    tipo: TipoLancamento;
+    valor: Decimal;
+    data: Date;
+    descricao: string | null;
+    notaFiscal: string | null;
+    comprovante: string | null;
+}
+
+export interface MetricaGastoMensal {
+    // Total de gastos do mês 
+    totalMes: number;
+
+    // Total de gasto no mês anterior
+    totalMesAnterior: number;
+
+    // Variação de porcentagem em relação ao mês anteior
+    variacaoPct: number | null; // positivo = gastou mais | negativo = gastou menos | null = não houve gastos no mes anterior
+
+    // Gastos por obras no mes
+    porObra: Map<string, number>; // ObraId - Valor
+
+    // Gastos por tipo de lançamento no mês
+    porTipo: Map<TipoLancamento, number>; // Tipo - Valor
+}
+
+export interface GastoObraResumo {
+    obraId: string;
+    obraNome: string;
+    gastoMes: number;
+    orcamentoTotal: number | null;
+    pctOrcamento: number | null; // Porcentagem total dos gastos no mes. Se for null, não houve gastos
+    desvioTotal: number | null; // Desvio total ( gasto vs orçamento ). Se for null, não houve orçamentos
+}
+
+export interface Periodo {
+    de: Date;
+    ate: Date;
+}
+
+export interface NovoTipoLancamentoInput {
+    obraId: string;
+    etapaId: string | null;
+    tipo: TipoLancamento;
+    valor: number,
+    date: Date;
+    comprovante: string | null;
+    notaFiscal: string | null;
+    descricao: string | null
+};
+
+export interface NovoLancamentoFormState {
+    obraId: string;
+    etapaId: string;
+    tipo: TipoLancamento;
+    valor: number;
+    date: string;
+    comprovante: string | null;
+    notaFiscal: string | null;
+    descricao: string | null
+}
+
+export type NovoLancamentoFormError = Partial<Record<keyof NovoLancamentoFormState, string>>;
+
+export type LancamentoActionResult =
+  | { ok: true;  lancamentoId: string }
+  | { ok: false; erro: string };
+
+export interface LancamentoResult {
+    obraId: string;
+    etapaId?: string;
+    obraNome?: string;
+    tipo: TipoLancamento;
+    valor: number;
+    data: Date;
+    comprovante?: string;
+    notaFiscal?: string;
+    descricao?: string;
+}
+
+export interface ImportResult {
+    total: number;
+    sucesso: number;
+    erros: number;
+    detalhes: string[];
 }

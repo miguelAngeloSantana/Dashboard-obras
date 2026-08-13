@@ -104,6 +104,7 @@ export default function Formulario(){
 
     async function handleSubmitForm(data: schemaObraType){
        formPrismaAction(data)
+
        route.back()
     }
 
